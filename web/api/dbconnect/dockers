@@ -1,0 +1,4 @@
+192.168.0.2	web.test.com
+192.168.0.3	db.test.com
+172.98.0.5	dbconnect.test.com
+172.98.0.6	query.test.com

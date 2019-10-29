@@ -4,7 +4,7 @@ Vagrant.configure("2") do |config|
 	config.vm.define "web" do |web|
 		web.vm.box = "centos/7"
 		web.vm.network "private_network", ip: "192.168.0.2", virtualbox__intnet: true
-		web.vm.network "forwarded_port", guest: 80, host: 80
+		web.vm.network "forwarded_port", guest: 80, host: 8080
 		web.vm.provider "virtualbox" do |webvm|
 			webvm.memory = 2048
 			webvm.cpus = 1

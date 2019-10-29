@@ -1,0 +1,53 @@
+- name: Web services in Recruitment system
+  hosts: localhost
+  connection: local
+
+  tasks:
+  - name: install docker via docker script
+    shell: "curl -fsSL https://get.docker.com/ | sh"
+    tags:
+    - first_time
+  
+  - name: start docker services
+    service:
+      name: docker
+      state: started
+      enabled: yes
+  
+  - name: install epel-release
+    yum:
+      name: epel-release
+      state: present
+  
+  - name: install python3
+    yum:
+      name: python3
+      state: present
+
+  - name: install install pip3
+    yum:
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - python3-pip
+      - python-pip
+  
+  - name: install docker-compose via pip
+    pip:
+      name: docker-compose
+      extra_args: --upgrade
+
+  - name: install docker via pip
+    pip:
+      name: docker
+      extra_args: --upgrade
+  
+  - name: Copy host files for dns
+    copy:
+      src: "/vagrant/resources/hosts"
+      dest: "/etc/hosts"
+
+  - name: run docker compose detached
+    docker_compose:
+      project_src: "/vagrant/web"
+      state: present

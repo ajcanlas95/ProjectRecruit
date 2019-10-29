@@ -1,8 +1,10 @@
 #!/bin/bash
 
-# install docker for containerized environment
-sudo su -c "curl -fsSL https://get.docker.com/ | sh" 
-sudo systemctl start docker
+#installing epel-release
+sudo yum install epel-release -y
 
-#Copy hosts file to have dns
-sudo cp /vagrant/resources/hosts	/etc/hosts
+#install Ansible
+sudo yum install ansible -y
+
+# Run playbook 
+ansible-playbook /vagrant/web/web.yaml
